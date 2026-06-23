@@ -20,25 +20,42 @@ export function ThreeFooterMesh() {
     let animationFrameId: number;
 
     const rect = container.getBoundingClientRect();
-    const w = rect.width || 350;
-    const h = rect.height || 350;
+    let w = rect.width || 300;
+    let h = rect.height || 300;
+    if (w < 50) w = 300;
+    if (h < 50) h = 300;
 
     // --- Renderer Setup ---
-    renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setSize(w, h);
-    renderer.setClearColor(0x000000);
+    try {
+      renderer = new THREE.WebGLRenderer({ antialias: true });
+      renderer.setSize(w, h);
+      renderer.setClearColor(0x000000);
 
-    // --- Ascii Effect Setup ---
-    // Characters used on reference site: ' .,:;i1tfLCG08@'
-    effect = new AsciiEffect(renderer, " .,:;i1tfLCG08@", { invert: true });
-    effect.setSize(w, h);
-    effect.domElement.style.color = "rgba(255, 255, 255, 0.4)";
-    effect.domElement.style.backgroundColor = "transparent";
-    effect.domElement.style.textAlign = "center";
-    effect.domElement.style.lineHeight = "normal";
-    effect.domElement.className = "three-ascii-canvas mx-auto";
+      // --- Ascii Effect Setup ---
+      // Characters used on reference site: ' .,:;i1tfLCG08@'
+      effect = new AsciiEffect(renderer, " .,:;i1tfLCG08@", { invert: true });
+      effect.setSize(w, h);
+      effect.domElement.style.color = "rgba(255, 255, 255, 0.4)";
+      effect.domElement.style.backgroundColor = "transparent";
+      effect.domElement.style.textAlign = "center";
+      effect.domElement.style.lineHeight = "normal";
+      effect.domElement.className = "three-ascii-canvas mx-auto";
 
-    container.appendChild(effect.domElement);
+      container.appendChild(effect.domElement);
+    } catch (e) {
+      console.error("WebGL Renderer creation failed in ThreeFooterMesh:", e);
+      // Fallback: render a static glowing container
+      const fallbackDiv = document.createElement("div");
+      fallbackDiv.className = "flex flex-col items-center justify-center w-full h-full text-white/30 font-display text-4xl font-extrabold tracking-widest uppercase border border-white/5 bg-black/40 rounded-3xl p-6 select-none shadow-[inset_0_0_20px_rgba(255,255,255,0.02)] min-h-[300px]";
+      fallbackDiv.innerHTML = `
+        <div class="relative w-20 h-20 mb-3 flex items-center justify-center">
+          <div class="absolute inset-0 rounded-full border border-dashed border-white/10 animate-[spin_60s_linear_infinite]"></div>
+          <span class="text-xs font-mono text-white/20 tracking-wider">SAI</span>
+        </div>
+      `;
+      container.appendChild(fallbackDiv);
+      return;
+    }
 
     // --- Camera Setup ---
     const fov = 75;
@@ -96,9 +113,9 @@ export function ThreeFooterMesh() {
 
     // --- Resize Handler ---
     const handleResize = () => {
-      if (!container) return;
+      if (!container || !renderer || !effect) return;
       const r = container.getBoundingClientRect();
-      const width = r.width || 350;
+      const width = r.width || 300;
       const height = width; // Force 1:1 aspect ratio
       renderer.setSize(width, height);
       effect.setSize(width, height);
@@ -182,11 +199,15 @@ export function ThreeFooterMesh() {
     return () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("scroll", handleScroll);
-      cancelAnimationFrame(animationFrameId);
-      if (container && effect.domElement && container.contains(effect.domElement)) {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+      if (container && effect && effect.domElement && container.contains(effect.domElement)) {
         container.removeChild(effect.domElement);
       }
-      renderer.dispose();
+      if (renderer) {
+        renderer.dispose();
+      }
     };
   }, []);
 

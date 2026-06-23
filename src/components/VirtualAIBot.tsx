@@ -78,7 +78,7 @@ export function VirtualAIBot() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.8, y: 100 }}
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
-            className="fixed bottom-24 left-6 z-50 w-[90%] max-w-[380px] h-[500px] bg-[#12121a] border border-[rgba(255,255,255,0.08)] rounded-2xl flex flex-col shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden"
+            className="fixed bottom-20 left-4 right-4 sm:left-6 sm:right-auto z-50 w-[calc(100%-2rem)] sm:w-[380px] h-[70vh] max-h-[500px] bg-[#12121a] border border-[rgba(255,255,255,0.08)] rounded-2xl flex flex-col shadow-[0_20px_50px_rgba(0,0,0,0.5)] overflow-hidden"
           >
             {/* Header */}
             <div className="bg-[rgba(255,255,255,0.02)] border-b border-[rgba(255,255,255,0.06)] px-4 py-3 flex items-center justify-between">
