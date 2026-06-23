@@ -454,7 +454,7 @@ export default function App() {
             </div>
 
             {/* Headline using oversized Podium Extended Typography */}
-            <h1 className="hero-animate opacity-0 font-podium text-white uppercase leading-[0.92] tracking-tight text-[clamp(2.8rem,7vw,6.5rem)] mb-6 text-center lg:text-left radial-text-gradient">
+            <h1 className="hero-animate opacity-0 font-podium text-white uppercase leading-[0.92] tracking-tight text-[clamp(2.2rem,7vw,6.5rem)] mb-6 text-center lg:text-left radial-text-gradient">
               {lang === "en" ? (
                 <>DESIGN.<br />DISRUPT.<br />CONQUER.</>
               ) : (
@@ -551,12 +551,12 @@ export default function App() {
 
       {/* Infinite Scrolling Ticker (Section Divider) */}
       <section className="relative z-10 py-6 border-y border-[#121218] bg-[#050508]/40 overflow-hidden w-full select-none">
-        <div className="flex gap-8 whitespace-nowrap animate-marquee">
+        <div className="flex gap-4 sm:gap-8 whitespace-nowrap animate-marquee">
           {Array(8)
             .fill(null)
             .flatMap(() => categories)
             .map((cat, idx) => (
-              <div key={idx} className="inline-flex items-center gap-2 mx-8 text-xs font-bold font-mono text-white/50 tracking-widest">
+              <div key={idx} className="inline-flex items-center gap-2 mx-3 sm:mx-8 text-xs font-bold font-mono text-white/50 tracking-widest">
                 <span>{cat.icon}</span>
                 <span>{cat.label}</span>
                 <span className="ml-2 text-[#00d4ff]">·</span>
@@ -797,12 +797,14 @@ export default function App() {
                 { name: "antigravity-awesome-skills", status: lang === "en" ? "Lab Work" : "ஆராய்ச்சி நிலை", css: "Markdown Typography" },
                 { name: "awesome-claude-skills", status: lang === "en" ? "Stable" : "சீராக உள்ளது", css: "CSS Flexbox / Grid" }
               ].map((repo, idx) => (
-                <div key={idx} className="flex justify-between items-center py-2 border-b border-[#121218]/40 text-xs font-mono">
-                  <span className="text-white hover:text-[#00d4ff] transition-all font-bold font-mono">{repo.name}</span>
-                  <div className="flex items-center gap-3">
-                    <span className="text-[9px] px-2 py-0.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400">{repo.css}</span>
-                    <span className={`w-2 h-2 rounded-full ${repo.status.includes("Ongoing") || repo.status.includes("செயலில்") ? "bg-amber-400 shadow-[0_0_8px_#f59e0b]" : repo.status.includes("Stable") || repo.status.includes("சீராக") ? "bg-emerald-500 shadow-[0_0_8px_#10b981]" : "bg-purple-500 shadow-[0_0_8px_#a855f7]"}`} />
-                    <span className="text-[10px] text-gray-500 font-bold uppercase">{repo.status}</span>
+                <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between py-3 sm:py-2 border-b border-[#121218]/40 text-xs font-mono gap-2 sm:gap-0">
+                  <span className="text-white hover:text-[#00d4ff] transition-all font-bold font-mono break-all">{repo.name}</span>
+                  <div className="flex items-center gap-2.5 flex-wrap">
+                    <span className="text-[9px] px-2 py-0.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 truncate max-w-[150px] sm:max-w-none">{repo.css}</span>
+                    <div className="flex items-center gap-1.5">
+                      <span className={`w-2 h-2 rounded-full ${repo.status.includes("Ongoing") || repo.status.includes("செயலில்") ? "bg-amber-400 shadow-[0_0_8px_#f59e0b]" : repo.status.includes("Stable") || repo.status.includes("சீராக") ? "bg-emerald-500 shadow-[0_0_8px_#10b981]" : "bg-purple-500 shadow-[0_0_8px_#a855f7]"}`} />
+                      <span className="text-[10px] text-gray-500 font-bold uppercase">{repo.status}</span>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -827,12 +829,14 @@ export default function App() {
                 { name: "OmniRoute", status: lang === "en" ? "Lab Work" : "ஆராய்ச்சி நிலை", css: "Tailwind CSS v4" },
                 { name: "turbovec", status: lang === "en" ? "Stable" : "சீராக உள்ளது", css: "Custom CSS Grid" }
               ].map((repo, idx) => (
-                <div key={idx} className="flex justify-between items-center py-2 border-b border-[#121218]/40 text-xs font-mono">
-                  <span className="text-white hover:text-amber-400 transition-all font-bold font-mono">{repo.name}</span>
-                  <div className="flex items-center gap-3">
-                    <span className="text-[9px] px-2 py-0.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400">{repo.css}</span>
-                    <span className={`w-2 h-2 rounded-full ${repo.status.includes("Ongoing") || repo.status.includes("செயலில்") ? "bg-amber-400 shadow-[0_0_8px_#f59e0b]" : repo.status.includes("Stable") || repo.status.includes("சீராக") ? "bg-emerald-500 shadow-[0_0_8px_#10b981]" : "bg-purple-500 shadow-[0_0_8px_#a855f7]"}`} />
-                    <span className="text-[10px] text-gray-500 font-bold uppercase">{repo.status}</span>
+                <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between py-3 sm:py-2 border-b border-[#121218]/40 text-xs font-mono gap-2 sm:gap-0">
+                  <span className="text-white hover:text-amber-400 transition-all font-bold font-mono break-all">{repo.name}</span>
+                  <div className="flex items-center gap-2.5 flex-wrap">
+                    <span className="text-[9px] px-2 py-0.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 truncate max-w-[150px] sm:max-w-none">{repo.css}</span>
+                    <div className="flex items-center gap-1.5">
+                      <span className={`w-2 h-2 rounded-full ${repo.status.includes("Ongoing") || repo.status.includes("செயலில்") ? "bg-amber-400 shadow-[0_0_8px_#f59e0b]" : repo.status.includes("Stable") || repo.status.includes("சீராக") ? "bg-emerald-500 shadow-[0_0_8px_#10b981]" : "bg-purple-500 shadow-[0_0_8px_#a855f7]"}`} />
+                      <span className="text-[10px] text-gray-500 font-bold uppercase">{repo.status}</span>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -860,12 +864,14 @@ export default function App() {
                 { name: "kubernetes-the-hard-way", status: lang === "en" ? "Lab Work" : "ஆராய்ச்சி நிலை", css: "Terminal Monospace" },
                 { name: "terraform-zero-to-hero", status: lang === "en" ? "Production" : "உற்பத்தி நிலை", css: "Custom variables" }
               ].map((repo, idx) => (
-                <div key={idx} className="flex justify-between items-center py-2 border-b border-[#121218]/40 text-xs font-mono">
-                  <span className="text-white hover:text-purple-400 transition-all font-bold font-mono">{repo.name}</span>
-                  <div className="flex items-center gap-3">
-                    <span className="text-[9px] px-2 py-0.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400">{repo.css}</span>
-                    <span className={`w-2 h-2 rounded-full ${repo.status.includes("Ongoing") || repo.status.includes("செயலில்") ? "bg-amber-400 shadow-[0_0_8px_#f59e0b]" : repo.status.includes("Stable") || repo.status.includes("சீராக") ? "bg-emerald-500 shadow-[0_0_8px_#10b981]" : "bg-purple-500 shadow-[0_0_8px_#a855f7]"}`} />
-                    <span className="text-[10px] text-gray-500 font-bold uppercase">{repo.status}</span>
+                <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between py-3 sm:py-2 border-b border-[#121218]/40 text-xs font-mono gap-2 sm:gap-0">
+                  <span className="text-white hover:text-purple-400 transition-all font-bold font-mono break-all">{repo.name}</span>
+                  <div className="flex items-center gap-2.5 flex-wrap">
+                    <span className="text-[9px] px-2 py-0.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 truncate max-w-[150px] sm:max-w-none">{repo.css}</span>
+                    <div className="flex items-center gap-1.5">
+                      <span className={`w-2 h-2 rounded-full ${repo.status.includes("Ongoing") || repo.status.includes("செயலில்") ? "bg-amber-400 shadow-[0_0_8px_#f59e0b]" : repo.status.includes("Stable") || repo.status.includes("சீராக") ? "bg-emerald-500 shadow-[0_0_8px_#10b981]" : "bg-purple-500 shadow-[0_0_8px_#a855f7]"}`} />
+                      <span className="text-[10px] text-gray-500 font-bold uppercase">{repo.status}</span>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -890,12 +896,14 @@ export default function App() {
                 { name: "three-tier-architecture-demo", status: lang === "en" ? "Stable" : "சீராக உள்ளது", css: "Custom Variables CSS" },
                 { name: "WEB-UI", status: lang === "en" ? "Stable" : "சீராக உள்ளது", css: "Pure Vanilla CSS" }
               ].map((repo, idx) => (
-                <div key={idx} className="flex justify-between items-center py-2 border-b border-[#121218]/40 text-xs font-mono">
-                  <span className="text-white hover:text-emerald-400 transition-all font-bold font-mono">{repo.name}</span>
-                  <div className="flex items-center gap-3">
-                    <span className="text-[9px] px-2 py-0.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400">{repo.css}</span>
-                    <span className={`w-2 h-2 rounded-full ${repo.status.includes("Ongoing") || repo.status.includes("செயலில்") ? "bg-amber-400 shadow-[0_0_8px_#f59e0b]" : repo.status.includes("Stable") || repo.status.includes("சீராக") ? "bg-emerald-500 shadow-[0_0_8px_#10b981]" : "bg-purple-500 shadow-[0_0_8px_#a855f7]"}`} />
-                    <span className="text-[10px] text-gray-500 font-bold uppercase">{repo.status}</span>
+                <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between py-3 sm:py-2 border-b border-[#121218]/40 text-xs font-mono gap-2 sm:gap-0">
+                  <span className="text-white hover:text-emerald-400 transition-all font-bold font-mono break-all">{repo.name}</span>
+                  <div className="flex items-center gap-2.5 flex-wrap">
+                    <span className="text-[9px] px-2 py-0.5 rounded-full bg-zinc-900 border border-zinc-800 text-zinc-400 truncate max-w-[150px] sm:max-w-none">{repo.css}</span>
+                    <div className="flex items-center gap-1.5">
+                      <span className={`w-2 h-2 rounded-full ${repo.status.includes("Ongoing") || repo.status.includes("செயலில்") ? "bg-amber-400 shadow-[0_0_8px_#f59e0b]" : repo.status.includes("Stable") || repo.status.includes("சீராக") ? "bg-emerald-500 shadow-[0_0_8px_#10b981]" : "bg-purple-500 shadow-[0_0_8px_#a855f7]"}`} />
+                      <span className="text-[10px] text-gray-500 font-bold uppercase">{repo.status}</span>
+                    </div>
                   </div>
                 </div>
               ))}
@@ -1143,7 +1151,7 @@ export default function App() {
         </div>
 
         {/* Sessions metrics Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
           {(lang === "ta" ? [
             { icon: "🎥", title: "மீட், ஜூம் & டிஸ்கார்ட்", desc: "பூஜ்ஜிய தாமத ஆடியோ/வீடியோ திரை பகிர்வு குழாய்கள்" },
             { icon: "⏱️", title: "1 மணிநேர வகுப்புகள்", desc: "அடர்த்தியாக தொகுக்கப்பட்ட, செறிவூட்டப்பட்ட வகுப்புகள்" },

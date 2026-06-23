@@ -111,7 +111,7 @@ export function ServiceTabs({ lang }: ServiceTabsProps) {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-stretch min-h-[450px]">
         
         {/* Left Side: Captions list (Interactive Tabs) */}
-        <div className="lg:col-span-5 flex flex-col justify-center space-y-6 sm:space-y-8 order-2 lg:order-1">
+        <div className="lg:col-span-5 flex flex-col justify-center space-y-6 sm:space-y-8 order-1 lg:order-1">
           {services.map((service) => {
             const isActive = activeTab === service.id;
             return (
@@ -140,7 +140,7 @@ export function ServiceTabs({ lang }: ServiceTabsProps) {
         </div>
 
         {/* Center/Right Side: Interactive Media & Descriptions */}
-        <div className="lg:col-span-7 flex flex-col lg:flex-row gap-6 items-stretch order-1 lg:order-2">
+        <div className="lg:col-span-7 flex flex-col lg:flex-row gap-6 items-stretch order-2 lg:order-2">
           
           {/* Glass Loop Video Container */}
           <div className="flex-1 min-h-[260px] sm:min-h-[300px] lg:min-h-[400px] rounded-3xl overflow-hidden relative border border-white/10 bg-[#07070a]/60 shadow-[0_15px_40px_rgba(0,0,0,0.5)]">

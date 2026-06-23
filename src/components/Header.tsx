@@ -188,8 +188,8 @@ export function Header({ lang, onLanguageChange }: HeaderProps) {
         {/* Menu Columns Grid */}
         <div className="flex-1 max-w-7xl mx-auto w-full px-6 sm:px-10 lg:px-16 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-16 py-12 overflow-y-auto relative z-10 text-left">
           
-          {/* Left Column: Language details and contact telemetry */}
-          <div className="flex flex-col justify-between items-start gap-8 self-stretch w-full lg:w-1/3">
+          {/* Left Column: Language details and contact telemetry (hidden on mobile/tablet for overlay menu compactness) */}
+          <div className="hidden lg:flex flex-col justify-between items-start gap-8 self-stretch w-full lg:w-1/3">
             {/* Language dropdown container */}
             <div className="space-y-2">
               <span className="text-[10px] font-mono tracking-widest text-gray-500 uppercase">
@@ -274,7 +274,7 @@ export function Header({ lang, onLanguageChange }: HeaderProps) {
 
           {/* Right Column: Rotating Wheel Large Links */}
           <div className="flex-1 flex flex-col items-start lg:items-end w-full lg:w-2/3 h-full justify-center">
-            <div className="flex flex-col gap-4 sm:gap-6 w-full max-w-lg lg:text-right">
+            <div className="flex flex-col gap-2 sm:gap-4 w-full max-w-lg lg:text-right">
               {menuItems.map((item, idx) => {
                 const isHovered = activeItem === item.label;
                 return (
@@ -285,12 +285,12 @@ export function Header({ lang, onLanguageChange }: HeaderProps) {
                     onClick={() => {
                       setMenuOpen(false);
                     }}
-                    className={`font-ibm-sans font-bold text-4xl sm:text-5xl lg:text-6xl uppercase tracking-tighter transition-all duration-300 relative inline-block py-1 hover:scale-[1.02] origin-left lg:origin-right ${
-                      isHovered ? "text-white bg-clip-text" : "text-white/20 hover:text-white/50"
+                    className={`font-ibm-sans font-bold text-2xl sm:text-4xl lg:text-5xl uppercase tracking-tighter transition-all duration-300 relative inline-block py-1 hover:scale-[1.02] origin-left lg:origin-right ${
+                      isHovered ? "text-white bg-clip-text pl-4 sm:pl-0" : "text-white/20 hover:text-white/50"
                     }`}
                   >
                     {isHovered && (
-                      <span className="absolute -left-5 lg:-left-auto lg:-right-5 top-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-linear-to-r from-[var(--color-menu-1)] to-[var(--color-menu-2)] shadow-[0_0_10px_rgba(255,255,255,0.6)] animate-ping" />
+                      <span className="absolute left-[-12px] lg:left-auto lg:right-[-20px] top-1/2 -translate-y-1/2 w-1.5 h-1.5 rounded-full bg-linear-to-r from-[var(--color-menu-1)] to-[var(--color-menu-2)] shadow-[0_0_10px_rgba(255,255,255,0.6)] animate-ping" />
                     )}
                     /{item.label}
                   </a>

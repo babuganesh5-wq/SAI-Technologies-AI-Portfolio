@@ -24,7 +24,7 @@ export function SaiLogo({ className = "" }: { className?: string }) {
             PATENTED
           </span>
         </div>
-        <div className="flex items-center gap-2">
+        <div className="hidden sm:flex items-center gap-2">
           <span className="text-[8px] text-[#64748b] tracking-[2px] uppercase font-bold leading-none">
             VIBE CODING & SYSTEM AUTOMATION
           </span>
