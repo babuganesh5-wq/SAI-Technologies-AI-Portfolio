@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -7,6 +7,26 @@
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
   --font-podium: "FSP DEMO - PODIUM Sharp 4.11", sans-serif;
   --font-inter: "Inter", sans-serif;
+  --font-ibm-mono: "IBM Plex Mono", monospace;
+  --font-ibm-sans: "IBM Plex Sans", sans-serif;
+}
+
+:root {
+  /* Extended Developments Glass System variables */
+  --c-glass: #bbbbbc;
+  --c-light: #ffffff;
+  --c-dark: #000000;
+  --glass-radius: 25px;
+  --glass-pad: 16px;
+  --glass-blur: 8px;
+  --glass-sat: 160%;
+  --glass-tint: 0.08;            /* 0..1 tint opacity */
+  --glass-light: 1;
+  --glass-dark: 1;
+  
+  /* Active menu gradients */
+  --color-menu-1: #6a11cb;
+  --color-menu-2: #2575fc;
 }
 
 @layer utilities {
@@ -62,5 +82,53 @@
   .animate-marquee {
     animation: marquee 30s linear infinite;
   }
-}
 
+  /* Liquid Glass Classes */
+  .liquid-glass {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .liquid-glass::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 1;
+    background: color-mix(
+      in srgb,
+      #ffffff calc(var(--glass-tint) * 100%),
+      transparent
+    );
+    box-shadow: 
+      inset 0 0 0 1px color-mix(in srgb, var(--c-light) calc(var(--glass-light) * 10%), transparent),
+      inset 1.8px 3px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-light) * 90%), transparent),
+      inset -2px -2px 0px -2px color-mix(in srgb, var(--c-light) calc(var(--glass-light) * 80%), transparent),
+      inset -3px -8px 1px -6px color-mix(in srgb, var(--c-light) calc(var(--glass-light) * 60%), transparent),
+      inset -0.3px -1px 4px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-dark) * 12%), transparent),
+      inset -1.5px 2.5px 0px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-dark) * 20%), transparent),
+      inset 0px 3px 4px -2px color-mix(in srgb, var(--c-dark) calc(var(--glass-dark) * 20%), transparent),
+      inset 2px -6.5px 1px -4px color-mix(in srgb, var(--c-dark) calc(var(--glass-dark) * 10%), transparent),
+      0px 1px 5px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-dark) * 10%), transparent),
+      0px 6px 16px 0px color-mix(in srgb, var(--c-dark) calc(var(--glass-dark) * 8%), transparent);
+  }
+
+  .liquid-glass::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: -1;
+    backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+    filter: url(#glass-distortion);
+  }
+
+  .liquid-glass.strong {
+    --glass-blur: 16px;
+    --glass-tint: 0.16;
+    --glass-filter: url(#glass-distortion-strong);
+  }
+}

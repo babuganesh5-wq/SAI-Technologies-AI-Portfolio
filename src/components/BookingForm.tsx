@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
-export function BookingForm() {
+interface BookingFormProps {
+  lang?: "en" | "ta";
+}
+
+export function BookingForm({ lang = "en" }: BookingFormProps) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -13,7 +17,7 @@ export function BookingForm() {
   const handleBooking = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const typeLabels: Record<string, string> = {
+    const typeLabelsEn: Record<string, string> = {
       "vibe-coding": "🔥 Vibe Coding & AI Automation",
       "generative-ai": "🧠 Generative AI & LLMs",
       "aws-cloud": "☁️ AWS Cloud & AI Services",
@@ -22,9 +26,31 @@ export function BookingForm() {
       "career": "🎯 Career Mentorship"
     };
 
-    const sessionLabel = typeLabels[sessionType] || sessionType;
+    const typeLabelsTa: Record<string, string> = {
+      "vibe-coding": "🔥 வைப்கோடிங் & AI ஆட்டோமேஷன்",
+      "generative-ai": "🧠 உருவாக்கும் AI & LLMகள்",
+      "aws-cloud": "☁️ AWS கிளவுட் & AI சேவைகள்",
+      "full-stack": "💻 முழு-அடுக்கு சாஸ் உருவாக்கம்",
+      "ai-automation": "🤖 AI ஆட்டோமேஷன் பணிப்பாய்வுகள்",
+      "career": "🎯 தொழில் வழிகாட்டுதல்"
+    };
 
-    const prefilledText = `Hi Ganesh! I want to book a live session:
+    const sessionLabel = lang === "ta" ? (typeLabelsTa[sessionType] || sessionType) : (typeLabelsEn[sessionType] || sessionType);
+
+    const prefilledText = lang === "ta"
+      ? `வணக்கம் கணேஷ்! நான் நேரடி வகுப்பை முன்பதிவு செய்ய விரும்புகிறேன்:
+    
+👤 பெயர்: ${name}
+📧 மின்னஞ்சல்: ${email}
+📱 தொலைபேசி: ${phone}
+📚 வகுப்பு வகை: ${sessionLabel}
+📅 விருப்பமான நாள்: ${preferredDay === "Saturday" ? "சனிக்கிழமை" : "ஞாயிற்றுக்கிழமை"}
+⏰ விருப்பமான நேரம்: ${preferredTime}
+🎥 சந்திப்பு தளம்: ${preferredPlatform}
+💬 செய்தி: ${message || "இல்லை"}
+
+தயவுசெய்து எனது வகுப்பை உறுதிப்படுத்தவும். நன்றி!`
+      : `Hi Ganesh! I want to book a live session:
     
 👤 Name: ${name}
 📧 Email: ${email}
@@ -51,13 +77,13 @@ Please confirm my slot. Thank you!`;
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-2">
           <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider">
-            Your Name
+            {lang === "en" ? "Your Name" : "உங்கள் பெயர்"}
           </label>
           <input
             type="text"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            placeholder="Enter your full name"
+            placeholder={lang === "en" ? "Enter your full name" : "உங்கள் முழுப் பெயரை உள்ளிடவும்"}
             required
             className="w-full px-4 py-3 bg-[#050508] border border-[rgba(255,255,255,0.06)] rounded-xl text-white text-sm focus:outline-none focus:border-[#00d4ff] focus:ring-1 focus:ring-[#00d4ff] transition-all"
           />
@@ -65,7 +91,7 @@ Please confirm my slot. Thank you!`;
 
         <div className="space-y-2">
           <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider">
-            Email Address
+            {lang === "en" ? "Email Address" : "மின்னஞ்சல் முகவரி"}
           </label>
           <input
             type="email"
@@ -80,8 +106,8 @@ Please confirm my slot. Thank you!`;
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-2">
-          <label className="block text-xs font-semibold text-gray-gray-400 text-gray-400 uppercase tracking-wider">
-            WhatsApp Phone Number
+          <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider">
+            {lang === "en" ? "WhatsApp Phone Number" : "வாட்ஸ்அப் தொலைபேசி எண்"}
           </label>
           <input
             type="tel"
@@ -95,7 +121,7 @@ Please confirm my slot. Thank you!`;
 
         <div className="space-y-2">
           <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider">
-            Session Target Strategy
+            {lang === "en" ? "Session Target Strategy" : "பயிலரங்கு இலக்கு உத்தி"}
           </label>
           <select
             value={sessionType}
@@ -103,13 +129,13 @@ Please confirm my slot. Thank you!`;
             required
             className="w-full px-4 py-3 bg-[#050508] border border-[rgba(255,255,255,0.06)] rounded-xl text-white text-sm focus:outline-none focus:border-[#00d4ff] focus:ring-1 focus:ring-[#00d4ff] transition-all appearance-none cursor-pointer"
           >
-            <option value="">Select a slot option...</option>
-            <option value="vibe-coding">🔥 Vibe Coding & AI Automation</option>
-            <option value="generative-ai">🧠 Generative AI & LLMs</option>
-            <option value="aws-cloud">☁️ AWS Cloud & AI Services</option>
-            <option value="full-stack">💻 Full-Stack SaaS Development</option>
-            <option value="ai-automation">🤖 AI Automation Workflows</option>
-            <option value="career">🎯 Career Mentorship</option>
+            <option value="">{lang === "en" ? "Select a slot option..." : "வகுப்பு விருப்பத்தைத் தேர்ந்தெடுக்கவும்..."}</option>
+            <option value="vibe-coding">{lang === "en" ? "🔥 Vibe Coding & AI Automation" : "🔥 வைப்கோடிங் & AI ஆட்டோமேஷன்"}</option>
+            <option value="generative-ai">{lang === "en" ? "🧠 Generative AI & LLMs" : "🧠 உருவாக்கும் AI & LLMகள்"}</option>
+            <option value="aws-cloud">{lang === "en" ? "☁️ AWS Cloud & AI Services" : "☁️ AWS கிளவுட் & AI சேவைகள்"}</option>
+            <option value="full-stack">{lang === "en" ? "💻 Full-Stack SaaS Development" : "💻 முழு-அடுக்கு சாஸ் உருவாக்கம்"}</option>
+            <option value="ai-automation">{lang === "en" ? "🤖 AI Automation Workflows" : "🤖 AI ஆட்டோமேஷன் பணிப்பாய்வுகள்"}</option>
+            <option value="career">{lang === "en" ? "🎯 Career Mentorship" : "🎯 தொழில் வழிகாட்டுதல்"}</option>
           </select>
         </div>
       </div>
@@ -117,7 +143,7 @@ Please confirm my slot. Thank you!`;
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div className="space-y-2">
           <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider">
-            Preferred Day
+            {lang === "en" ? "Preferred Day" : "விருப்பமான நாள்"}
           </label>
           <select
             value={preferredDay}
@@ -125,15 +151,15 @@ Please confirm my slot. Thank you!`;
             required
             className="w-full px-4 py-3 bg-[#050508] border border-[rgba(255,255,255,0.06)] rounded-xl text-white text-sm focus:outline-none focus:border-[#00d4ff] focus:ring-1 focus:ring-[#00d4ff] transition-all appearance-none cursor-pointer"
           >
-            <option value="">Choose day...</option>
-            <option value="Saturday">Saturday</option>
-            <option value="Sunday">Sunday</option>
+            <option value="">{lang === "en" ? "Choose day..." : "நாளைத் தேர்ந்தெடுக்கவும்..."}</option>
+            <option value="Saturday">{lang === "en" ? "Saturday" : "சனிக்கிழமை"}</option>
+            <option value="Sunday">{lang === "en" ? "Sunday" : "ஞாயிற்றுக்கிழமை"}</option>
           </select>
         </div>
 
         <div className="space-y-2">
           <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider">
-            Preferred Time Slot
+            {lang === "en" ? "Preferred Time Slot" : "விருப்பமான நேர அளவு"}
           </label>
           <select
             value={preferredTime}
@@ -141,7 +167,7 @@ Please confirm my slot. Thank you!`;
             required
             className="w-full px-4 py-3 bg-[#050508] border border-[rgba(255,255,255,0.06)] rounded-xl text-white text-sm focus:outline-none focus:border-[#00d4ff] focus:ring-1 focus:ring-[#00d4ff] transition-all appearance-none cursor-pointer"
           >
-            <option value="">Choose time...</option>
+            <option value="">{lang === "en" ? "Choose time..." : "நேரத்தைத் தேர்ந்தெடுக்கவும்..."}</option>
             <option value="10:00 AM">10:00 AM</option>
             <option value="11:00 AM">11:00 AM</option>
             <option value="12:00 PM">12:00 PM</option>
@@ -157,7 +183,7 @@ Please confirm my slot. Thank you!`;
 
       <div className="space-y-2">
         <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider">
-          Preferred Meeting Platform
+          {lang === "en" ? "Preferred Meeting Platform" : "விருப்பமான சந்திப்பு தளம்"}
         </label>
         <select
           value={preferredPlatform}
@@ -174,12 +200,16 @@ Please confirm my slot. Thank you!`;
 
       <div className="space-y-2">
         <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider">
-          Custom Message (Optional)
+          {lang === "en" ? "Custom Message (Optional)" : "தனிப்பயன் செய்தி (விருப்பத்திற்குரியது)"}
         </label>
         <textarea
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          placeholder="Share your background, key goals, or what SaaS products you wish to build..."
+          placeholder={
+            lang === "en"
+              ? "Share your background, key goals, or what SaaS products you wish to build..."
+              : "உங்கள் பின்னணி, முக்கிய இலக்குகள் அல்லது நீங்கள் உருவாக்க விரும்பும் சாஸ் தயாரிப்புகளைப் பகிரவும்..."
+          }
           rows={3}
           className="w-full px-4 py-3 bg-[#050508] border border-[rgba(255,255,255,0.06)] rounded-xl text-white text-sm focus:outline-none focus:border-[#00d4ff] focus:ring-1 focus:ring-[#00d4ff] transition-all resize-none"
         ></textarea>
@@ -189,7 +219,7 @@ Please confirm my slot. Thank you!`;
         type="submit"
         className="w-full py-4 rounded-xl text-dark font-semibold text-base transition-all duration-300 hover:shadow-[0_0_30px_rgba(0,212,255,0.4)] flex items-center justify-center gap-2 cursor-pointer shadow-lg active:scale-95 bg-linear-to-r from-[var(--cyan)] to-[var(--teal)] text-slate-950 font-bold"
       >
-        <span>☑ Book Session via WhatsApp</span>
+        <span>{lang === "en" ? "☑ Book Session via WhatsApp" : "☑ வாட்ஸ்அப் மூலம் முன்பதிவு செய்க"}</span>
       </button>
     </form>
   );
