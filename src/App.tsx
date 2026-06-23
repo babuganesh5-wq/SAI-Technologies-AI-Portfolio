@@ -428,7 +428,7 @@ export default function App() {
       {/* Hero Section */}
       <section
         id="home"
-        className="relative w-full min-h-screen overflow-hidden flex flex-col justify-between pt-24 pb-12 lg:pt-32"
+        className="relative w-full min-h-screen overflow-x-hidden overflow-y-visible flex flex-col justify-between pt-24 pb-12 lg:pt-32"
       >
         {/* Visual network paths representing extended-developments background grid */}
         <div className="absolute inset-0 opacity-[0.03] pointer-events-none select-none z-0">
@@ -516,7 +516,7 @@ export default function App() {
           </div>
 
           {/* Right Side Centerpiece: ThreeJS 3D space with proper proportions */}
-          <div className="lg:col-span-5 w-full flex items-center justify-center relative select-none">
+          <div className="lg:col-span-5 lg:-translate-x-16 w-full flex items-center justify-center relative select-none opacity-75 hover:opacity-100 transition-opacity duration-500">
             <div className="w-full max-w-[280px] sm:max-w-[340px] lg:max-w-[420px] aspect-square relative z-10">
               {/* Background 3D status badge */}
               <div className="absolute top-2 right-2 bg-white/5 border border-white/10 backdrop-blur-md text-[8px] font-mono tracking-widest text-[#00d4ff] px-2.5 py-0.5 rounded-full z-10 animate-pulse">

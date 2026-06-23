@@ -56,7 +56,7 @@ export function ThreeHeroMesh() {
     const near = 0.1;
     const far = 20;
     camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-    camera.position.z = w < 600 ? 18 : 10;
+    camera.position.z = (w < 600 || h < 500) ? 18 : 10;
 
     // --- Lights Setup ---
     // Blue directional light from right front
@@ -116,7 +116,7 @@ export function ThreeHeroMesh() {
       renderer.domElement.style.width = "100%";
       renderer.domElement.style.height = "100%";
       camera.aspect = w / h;
-      camera.position.z = w < 600 ? 18 : 10;
+      camera.position.z = (w < 600 || h < 500) ? 18 : 10;
       camera.updateProjectionMatrix();
 
       if (faceModel) {
